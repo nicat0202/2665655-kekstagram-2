@@ -1,3 +1,5 @@
+import { openBigPicture } from './big-picture.js';
+
 import {createPhotos} from './create-photos.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
@@ -15,6 +17,11 @@ createImage.forEach((photo) => {
 
   thumbnail.querySelector('.picture__likes').textContent = photo.likes;
   thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
+
+  thumbnail.addEventListener('click', () => {
+    openBigPicture(photo);
+
+  });
 
   fragment.appendChild(thumbnail);
 });
