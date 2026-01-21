@@ -61,7 +61,7 @@ function closeBigPicture () {
   likesCount.textContent = '';
   description.textContent = '';
   document.removeEventListener('keydown', onEscapeKeydown);
-};
+}
 
 cancelButton.addEventListener('click', () => {
   closeBigPicture();
