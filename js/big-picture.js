@@ -1,4 +1,4 @@
-import { initComments, clearComments} from './picture-comments';
+import { initComments, clearComments} from './picture-comments.js';
 
 const body = document.body;
 const bigPicture = document.querySelector('.big-picture');

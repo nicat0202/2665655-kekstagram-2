@@ -1,6 +1,6 @@
-import { closeForm } from './form';
+import { closeForm } from './form.js';
 import { sendData } from './server.js';
-import { showError, showSuccess, showErrorRepeat } from './error-server.js';
+import { showSuccess,showError} from './form-message.js';
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i ;
 
@@ -25,6 +25,14 @@ const onClickSmaller = document.querySelector('.scale__control--smaller');
 const onClickBigger = document.querySelector('.scale__control--bigger');
 const scaleControl = document.querySelector('.scale__control--value');
 
+// Функция для сброса масштаба к 100%
+
+const resetImgScale = () => {
+  imgEffect.style.transform = 'scale(1)';
+  scaleControl.value = '100%';
+};
+
+
 // Функция для изменение размера 100%
 
 function sizePhoto() {
@@ -33,7 +41,7 @@ function sizePhoto() {
   imgEffect.style.transform = `scale(${scaleNumber})`;
 }
 
-// Обработчик для кнопки -
+// Обработчик для кнопки минус
 
 const smaller = () => {
   let currentValue = parseInt(scaleControl.value, 10);
@@ -44,7 +52,7 @@ const smaller = () => {
   }
 };
 
-// Обработчик для кнопки +
+// Обработчик для кнопки плюс
 
 const bigger = () => {
   let currentValue = parseInt(scaleControl.value, 10);
@@ -60,8 +68,6 @@ const pristine = new Pristine (form, {
   errorTextParent:'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error'
 });
-
-// Переменная для ошибок хэштега
 
 const getHashtags = (value) => value.trim().split(' ').filter((item) => !!item);
 
@@ -101,7 +107,7 @@ form.addEventListener('submit', (evt) => {
         closeForm();
       })
       .catch(() => {
-        // showErrorRepeat();
+        showError();
       });
   }
 });
@@ -113,4 +119,4 @@ const resetValidate = () => pristine.reset();
 onClickSmaller.addEventListener('click', smaller);
 onClickBigger.addEventListener('click', bigger);
 
-export {resetValidate};
+export {resetValidate,resetImgScale};
