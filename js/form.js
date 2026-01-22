@@ -20,6 +20,7 @@ const closeForm = () => {
 };
 
 // Кнопка событие для закрытие формы
+
 cancelButton.addEventListener('click', closeForm);
 
 export {initForm, closeForm};

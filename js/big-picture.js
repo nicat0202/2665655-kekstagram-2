@@ -1,4 +1,4 @@
-import { initComments, clearComments} from "./picture-comments";
+import { initComments, clearComments} from './picture-comments';
 
 const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
@@ -45,10 +45,9 @@ const openBigPicture = (photo) => {
 
   clearComments();
   initComments(photo.comments);
-  // console.log(socialComments);
 };
 
-// Кнопка для закрытие окна ESC
+// Функция для закрытие окна ESC
 
 function closeBigPicture () {
   body.classList.remove('modal-open');

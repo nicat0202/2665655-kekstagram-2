@@ -20,5 +20,4 @@ const sendData = (body) => fetch('https://31.javascript.htmlacademy.pro/kekstagr
     return result.json();
   });
 
-
 export {getData, sendData};

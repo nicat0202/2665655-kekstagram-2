@@ -1,15 +1,18 @@
 import { closeForm } from './form';
 import { sendData } from './server.js';
+import { showError, showSuccess, showErrorRepeat } from './error-server.js';
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i ;
 
 // Переменная для вывода ошибок
+
 const ErrorMessage = {
   INVALID: 'введен невалидный хэштег',
   COUNT: 'превышено количество хэштегов',
   REPEAT: 'хэштеги повторяются',
   COMMENTS : 'ошибка здесь'
 };
+
 const STEP = 25; // шаг изменения в процентах
 const MIN_VALUE = 25; // минимальное значение %
 const MAX_VALUE = 100; // максимальное значение %
@@ -18,14 +21,13 @@ const form = document.querySelector('.img-upload__form');
 const hashtagsInput = form.querySelector('.text__hashtags');
 const textFormDescription = document.querySelector('.text__description');
 const imgEffect = document.querySelector('.img-upload__preview img');
-const smallerBtn = document.querySelector('.scale__control--smaller');
-const biggerBtn = document.querySelector('.scale__control--bigger');
+const onClickSmaller = document.querySelector('.scale__control--smaller');
+const onClickBigger = document.querySelector('.scale__control--bigger');
 const scaleControl = document.querySelector('.scale__control--value');
-
 
 // Функция для изменение размера 100%
 
-function image() {
+function sizePhoto() {
   const value = parseInt(scaleControl.value, 10);
   const scaleNumber = value / 100;
   imgEffect.style.transform = `scale(${scaleNumber})`;
@@ -38,7 +40,7 @@ const smaller = () => {
   if (currentValue > MIN_VALUE) {
     currentValue -= STEP;
     scaleControl.value = `${currentValue}%`;
-    image();
+    sizePhoto();
   }
 };
 
@@ -49,17 +51,15 @@ const bigger = () => {
   if (currentValue < MAX_VALUE) {
     currentValue += STEP;
     scaleControl.value = `${currentValue}%`;
-    image();
+    sizePhoto();
   }
 };
-
 
 const pristine = new Pristine (form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent:'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error'
 });
-
 
 // Переменная для ошибок хэштега
 
@@ -92,23 +92,25 @@ pristine.addValidator(hashtagsInput,isValidCountHashtags, ErrorMessage.COUNT);
 pristine.addValidator(hashtagsInput,isUniqueHashtags, ErrorMessage.REPEAT);
 pristine.addValidator(textFormDescription, isValidComment ,ErrorMessage.COMMENTS);
 
-
-form.addEventListener('submit', (evt) =>{
+form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if(pristine.validate()){
     sendData(new FormData(evt.target))
       .then(() => {
+        showSuccess();
         closeForm();
+      })
+      .catch(() => {
+        // showErrorRepeat();
       });
   }
 });
-
 
 const resetValidate = () => pristine.reset();
 
 // Обработчики для масштаба изоображение в форме
 
-smallerBtn.addEventListener('click', smaller);
-biggerBtn.addEventListener('click', bigger);
+onClickSmaller.addEventListener('click', smaller);
+onClickBigger.addEventListener('click', bigger);
 
 export {resetValidate};

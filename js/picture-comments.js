@@ -31,8 +31,7 @@ const renderComments = (comments) => {
 
   if (count >= totalComments.length) {
     commentsLoader.classList.add('hidden');
-  }
-  else {
+  } else {
     commentsLoader.classList.remove('hidden');
   }
 };

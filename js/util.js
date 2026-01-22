@@ -1,4 +1,5 @@
 // Возвращает случайное целое число
+
 const getRandomNumber = (min, max) => {
   const lower = Math.ceil(Math.min(min, max));
   const upper = Math.floor(Math.max(min, max));
@@ -16,6 +17,7 @@ const createIdGenerator = () => {
     return lastGenerateId;
   };
 };
+
 const getId = createIdGenerator();
 
 // Выбирает один случайный элемент из массива

@@ -23,7 +23,6 @@ sliderElement.noUiSlider.on('update', () => {
   const value = sliderElement.noUiSlider.get();
   effectLevel.value = value;
 
-
   // Условии для картинок
 
   if (currentEffect === 'chrome') {
@@ -42,6 +41,7 @@ sliderElement.noUiSlider.on('update', () => {
 });
 
 // Обработчик для эффекта слайдера
+
 effectsList.addEventListener('change', (evt) => {
   currentEffect = evt.target.value;
 
