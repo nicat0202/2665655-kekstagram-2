@@ -1,6 +1,5 @@
 import { resetValidate,resetImgScale } from './form-validate.js';
 
-
 const uploadInput = document.querySelector('.img-upload__input');
 const formOverlay = document.querySelector('.img-upload__overlay');
 const cancelButton = formOverlay.querySelector('.img-upload__cancel');

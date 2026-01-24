@@ -25,7 +25,7 @@ const onClickSmaller = document.querySelector('.scale__control--smaller');
 const onClickBigger = document.querySelector('.scale__control--bigger');
 const scaleControl = document.querySelector('.scale__control--value');
 
-// Функция для сброса масштаба к 100%
+// Функция для сброса масштаба
 
 const resetImgScale = () => {
   imgEffect.style.transform = 'scale(1)';
