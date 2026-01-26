@@ -16,20 +16,6 @@ const onEscapeKeydown = (evt) => {
   }
 };
 
-// // Функция которая создает комментарии
-
-// const renderComments = (comments) => {
-//   const fragment = document.createDocumentFragment();
-//   comments.forEach((comment) => {
-//     const commentTemplate = socialComment.cloneNode(true);
-//     const commentAuthor = commentTemplate.querySelector('.social__picture');
-//     commentAuthor.src = comment.avatar;
-//     commentAuthor.alt = comment.name;
-//     fragment.appendChild(commentTemplate);
-//   });
-//   socialComments.appendChild(fragment);
-// };
-
 // Функция которая открываает фото
 
 const openBigPicture = (photo) => {

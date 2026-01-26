@@ -1,8 +1,10 @@
-import { renderMiniatures } from './thumbails.js';
+import { renderMiniatures } from './thumbnails.js';
 import { debounce } from './util.js';
 
 const filtersImg = document.querySelector('.img-filters');
 const filterButtons = document.querySelectorAll('.img-filters__button');
+
+// Функция для удаление белого эффекта на кнопки
 
 const inactiveFiltersButtons = () => {
   filterButtons.forEach((button) => {
@@ -10,16 +12,25 @@ const inactiveFiltersButtons = () => {
   });
 };
 
+// Переменная + функция для оптимизации производительности
+
 const debounceRenderMiniatures = debounce(renderMiniatures);
 
+// Функция , при выборе другой кнопки, белый эффект удаляется
 
 const showFilters = () => {
   filtersImg.classList.remove('img-filters--inactive');
 };
 
+// Сортирует массив по убыванию количества комментариев
+
 const getDiscussedPhotos = (photos) => photos.slice().sort((a,b) => b.comments.length - a.comments.length);
 
+// Выбирает случайные фотографии от 1 до 10
+
 const getRandomPhotos = (photos) => photos.slice(0,10);
+
+// Функция для основных кнопок приложение
 
 const initFilters = (photos) => {
   showFilters();
@@ -37,6 +48,5 @@ const initFilters = (photos) => {
     });
   });
 };
-
 
 export{initFilters};

@@ -2,13 +2,11 @@ const errorTemplateData = document.querySelector('#data-error').content.querySel
 const errorTemplate = document.querySelector('#error').content.querySelector('.error'); // Ошибка загрузки файла
 const successTemplate = document.querySelector('#success').content.querySelector('.success'); // Изображение успешно загружено
 
-// Попробовать ещё раз
 const body = document.querySelector('body');
 
 const isEscape = (evt) => evt.key === 'Escape';
 
-
-// Функция для ошибки с интервалом 5 сек
+// Функция для ошибки с таймером 5 сек
 
 const showTimeError = () => {
   const errorMessageTime = errorTemplateData.cloneNode(true);
@@ -26,8 +24,9 @@ const showSuccess = () => {
 
   const closeSuccess = () => {
     successMessage.remove();
-    document.removeEventListener('keydown', onKeydownClick);
+    document.removeEventListener('keydown', onKeydownClickError);
   };
+
   successMessage.querySelector('.success__button').addEventListener('click',() => {
     closeSuccess();
   });
@@ -37,13 +36,13 @@ const showSuccess = () => {
       closeSuccess();
     }
   });
-  function onKeydownClick(evt) {
+
+  function onKeydownClickError(evt) {
     if(isEscape(evt)){
       closeSuccess();
     }
   }
-
-  document.addEventListener('keydown', onKeydownClick);
+  document.addEventListener('keydown', onKeydownClickError);
 };
 
 // Изоображение загружено с ошибкой
@@ -51,15 +50,16 @@ const showSuccess = () => {
 const showError = () => {
   const errorMessage = errorTemplate.cloneNode('true');
   body.appendChild(errorMessage);
-  const closeError = () => {
-    errorMessage.remove();
+
+  const closeError = (evt) => {
+    evt.target.remove();
     document.removeEventListener('keydown', onKeydownClickError);
   };
   errorMessage.querySelector('.error__button').addEventListener('click', () => {
     closeError();
   });
-  errorMessage.addEventListener('click', () => {
-    if(errorMessage.classList.contains('error')){
+  errorMessage.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('error')){
       closeError();
     }
   });
@@ -69,8 +69,7 @@ const showError = () => {
       closeError();
     }
   }
-
   document.addEventListener('keydown', onKeydownClickError);
 };
 
-export { showSuccess,showError};
+export { showSuccess, showError, showTimeError};

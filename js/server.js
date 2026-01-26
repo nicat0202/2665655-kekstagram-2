@@ -1,5 +1,5 @@
 const getData = () =>
-  fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
+  fetch('https://31.javascript.htmlacademy.pro/kekstagram/data/')
     .then((result) => {
       if(!result.ok){
         throw new Error();
@@ -7,7 +7,7 @@ const getData = () =>
       return result.json();
     });
 
-const sendData = (body) => fetch('https://31.javascript.htmlacademy.pro/kekstagram',
+const sendData = (body) => fetch('https://31.javascript.htmlacademy.pro/kekstagram/',
   {
     method : 'POST',
     body

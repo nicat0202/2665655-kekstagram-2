@@ -1,10 +1,10 @@
-import { renderMiniatures } from './thumbails.js';
+import { renderMiniatures } from './thumbnails.js';
 import { initForm } from './form.js';
 import './form-effects.js';
 import { getData } from './server.js';
-import { showError } from './form-message.js';
+import { showTimeError } from './form-message.js';
 import { initFilters } from './filters-img.js';
-import { initUploadFile } from './avatar.js';
+import { initUploadFile } from './photo-area.js';
 
 getData()
   .then((photos) => {
@@ -12,7 +12,7 @@ getData()
     initFilters(photos);
   })
   .catch(() => {
-    showError();
+    showTimeError();
   });
 
 initForm();

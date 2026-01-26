@@ -1,7 +1,6 @@
 import { NAMES,MESSAGES } from './data.js';
 import {getRandomNumber,createIdGenerator,getRandomItem} from './util.js';
 
-
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const MIN_COMMENTS = 0;
@@ -26,7 +25,6 @@ const createComments = () => {
   return comments;
 };
 
-
 // Создаёт список фотографий
 
 const createPhotos = () => {
@@ -43,8 +41,6 @@ const createPhotos = () => {
     photos.push(photo);
   }
   return photos;
-
 };
-
 
 export {createPhotos};

@@ -14,8 +14,6 @@ let count = [0];
 
 const renderComments = (comments) => {
 
-  // commentsLoader.classList.add('hidden');
-
   const fragment = document.createDocumentFragment();
   comments.forEach((comment) => {
     const commentTemplate = socialComment.cloneNode(true);

@@ -18,7 +18,7 @@ const createIdGenerator = () => {
   };
 };
 
-const getId = createIdGenerator();
+// const getId = createIdGenerator();
 
 // Выбирает один случайный элемент из массива
 

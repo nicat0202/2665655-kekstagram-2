@@ -1,7 +1,5 @@
 import { openBigPicture } from './big-picture.js';
 
-// import {createPhotos} from './create-photos.js';
-
 const template = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 

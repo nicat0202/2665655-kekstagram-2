@@ -1,6 +1,15 @@
 import { closeForm } from './form.js';
 import { sendData } from './server.js';
-import { showSuccess,showError} from './form-message.js';
+import { showSuccess,showTimeError} from './form-message.js';
+
+const form = document.querySelector('.img-upload__form');
+const hashtagsInput = form.querySelector('.text__hashtags');
+const textFormDescription = document.querySelector('.text__description');
+const imgEffect = document.querySelector('.img-upload__preview img');
+const onClickSmaller = document.querySelector('.scale__control--smaller');
+const onClickBigger = document.querySelector('.scale__control--bigger');
+const scaleControl = document.querySelector('.scale__control--value');
+const submitFormBtn = form.querySelector('.img-upload__submit');
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i ;
 
@@ -17,21 +26,12 @@ const STEP = 25; // шаг изменения в процентах
 const MIN_VALUE = 25; // минимальное значение %
 const MAX_VALUE = 100; // максимальное значение %
 
-const form = document.querySelector('.img-upload__form');
-const hashtagsInput = form.querySelector('.text__hashtags');
-const textFormDescription = document.querySelector('.text__description');
-const imgEffect = document.querySelector('.img-upload__preview img');
-const onClickSmaller = document.querySelector('.scale__control--smaller');
-const onClickBigger = document.querySelector('.scale__control--bigger');
-const scaleControl = document.querySelector('.scale__control--value');
-
 // Функция для сброса масштаба
 
 const resetImgScale = () => {
   imgEffect.style.transform = 'scale(1)';
   scaleControl.value = '100%';
 };
-
 
 // Функция для изменение размера 100%
 
@@ -85,29 +85,59 @@ const isUniqueHashtags = (value) => {
 
 // Функция для комментариев 140
 
-const isValidComment = (value) => {
-  const textLength = textFormDescription.value;
-  if(textLength){
-    return value.length <= 140;
-  }
-  return true;
+const isValidComment = (value) => value.length <= 140;
+
+// Событие при наведение не срабатывает кнопка ESC
+
+hashtagsInput.addEventListener('keydown',(evt) => {
+  evt.stopPropagation();
+});
+
+textFormDescription.addEventListener('keydown',(evt) => {
+  evt.stopPropagation();
+});
+// Функция для успешной формы окна
+
+const frameMessage = (evt) => {
+  evt.stopPropagation();
 };
+
+document.addEventListener('click', (evt) => {
+  if (evt.target.closest('.success__inner') || evt.target.closest('.error__inner')) {
+    evt.stopPropagation();
+  }
+});
 
 pristine.addValidator(hashtagsInput,isValidHashtags, ErrorMessage.INVALID);
 pristine.addValidator(hashtagsInput,isValidCountHashtags, ErrorMessage.COUNT);
 pristine.addValidator(hashtagsInput,isUniqueHashtags, ErrorMessage.REPEAT);
 pristine.addValidator(textFormDescription, isValidComment ,ErrorMessage.COMMENTS);
 
+// Cобытия для отправки формы - кнопка 'Опубликовать'
+
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if(pristine.validate()){
+    submitFormBtn.disabled = true;
     sendData(new FormData(evt.target))
       .then(() => {
         showSuccess();
         closeForm();
+        const onSuccessMessage = document.querySelector('.success__inner');
+        const onErrorInner = document.querySelector('.error__inner');
+        if(onSuccessMessage){
+          onSuccessMessage.addEventListener('click', frameMessage);
+        }else {
+          if(onErrorInner){
+            onErrorInner.addEventListener('click', frameMessage);
+          }
+        }
       })
       .catch(() => {
-        showError();
+        showTimeError();
+      })
+      .finally(() => {
+        submitFormBtn.disabled = false;
       });
   }
 });
