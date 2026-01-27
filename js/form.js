@@ -5,15 +5,6 @@ const formOverlay = document.querySelector('.img-upload__overlay');
 const onCancelButton = formOverlay.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 
-const initForm = () => {};
-
-const isEscape = (evt) => evt.key === 'Escape';
-
-uploadInput.addEventListener('change', () => {
-  formOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-});
-
 const closeForm = () => {
   formOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -22,6 +13,24 @@ const closeForm = () => {
   resetImgScale();
   document.removeEventListener('keydown', onCancelButton);
 };
+
+
+const initForm = () => {
+  uploadInput.addEventListener('change', () => {
+    formOverlay.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+  });
+  onCancelButton.addEventListener('click', closeForm);
+  document.addEventListener('keydown', onDocumentEscape);
+};
+
+const isEscape = (evt) => evt.key === 'Escape';
+
+uploadInput.addEventListener('change', () => {
+  formOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+});
+
 
 function onDocumentEscape (evt) {
   if(isEscape(evt) && !document.querySelector('.error')){
@@ -34,4 +43,4 @@ function onDocumentEscape (evt) {
 onCancelButton.addEventListener('click', closeForm);
 document.addEventListener('keydown', onDocumentEscape);
 
-export {initForm, closeForm};
+export {closeForm,initForm};
