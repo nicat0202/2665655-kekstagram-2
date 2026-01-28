@@ -1,3 +1,5 @@
+const COMMENTS_COUNT = 5;
+
 const bigPicture = document.querySelector('.big-picture');
 const socialComments = bigPicture.querySelector('.social__comments');
 const socialComment = bigPicture.querySelector('.social__comment');
@@ -5,10 +7,8 @@ const commentCount = bigPicture.querySelector('.social__comment-shown-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const commentTotalCount = bigPicture.querySelector('.social__comment-total-count');
 
-const COMMENTS_COUNT = 5;
-
 let totalComments = [];
-let count = [0];
+let counts = [0];
 
 // Функция которая создает комментарии
 
@@ -25,9 +25,9 @@ const renderComments = (comments) => {
   });
   socialComments.appendChild(fragment);
 
-  commentCount.textContent = count;
+  commentCount.textContent = counts;
 
-  if (count >= totalComments.length) {
+  if (counts >= totalComments.length) {
     commentsLoader.classList.add('hidden');
   } else {
     commentsLoader.classList.remove('hidden');
@@ -40,17 +40,17 @@ const clearComments = () => {
 };
 
 const initComments = (comments) => {
-  count = Math.min(COMMENTS_COUNT, comments.length);
+  counts = Math.min(COMMENTS_COUNT, comments.length);
   totalComments = comments;
   commentTotalCount.textContent = comments.length;
-  commentCount.textContent = count;
-  renderComments(comments.slice(0,count));
+  commentCount.textContent = counts;
+  renderComments(comments.slice(0,counts));
 };
 
 commentsLoader.addEventListener('click', () =>{
-  const prevCount = count;
-  count = Math.min(count + COMMENTS_COUNT, totalComments.length);
-  renderComments(totalComments.slice(prevCount,count));
+  const prevCount = counts;
+  counts = Math.min(counts + COMMENTS_COUNT, totalComments.length);
+  renderComments(totalComments.slice(prevCount,counts));
 });
 
 export {renderComments, clearComments, initComments};

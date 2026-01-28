@@ -6,7 +6,7 @@ const filterButtons = document.querySelectorAll('.img-filters__button');
 
 // Функция для удаление белого эффекта на кнопки
 
-const inactiveFiltersButtons = () => {
+const deactiveFiltersButtons = () => {
   filterButtons.forEach((button) => {
     button.classList.remove('img-filters__button--active');
   });
@@ -36,7 +36,7 @@ const initFilters = (photos) => {
   showFilters();
   filterButtons.forEach((button) => {
     button.addEventListener('click', (evt) => {
-      inactiveFiltersButtons();
+      deactiveFiltersButtons();
       evt.target.classList.add('img-filters__button--active');
       if(evt.target.id === 'filter-default'){
         debounceRenderMiniatures(photos);

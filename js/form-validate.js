@@ -1,4 +1,4 @@
-import { closeForm } from './form.js';
+import { handleCancelClick } from './form.js';
 import { sendData } from './server.js';
 import { showSuccess,showError} from './form-message.js';
 
@@ -11,10 +11,6 @@ const onClickBigger = document.querySelector('.scale__control--bigger');
 const scaleControl = document.querySelector('.scale__control--value');
 const submitFormBtn = form.querySelector('.img-upload__submit');
 
-const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i ;
-
-// Переменная для вывода ошибок
-
 const ErrorMessage = {
   INVALID: 'введен невалидный хэштег',
   COUNT: 'превышено количество хэштегов',
@@ -26,6 +22,8 @@ const STEP = 25; // шаг изменения в процентах
 const MIN_VALUE = 25; // минимальное значение %
 const MAX_VALUE = 100; // максимальное значение %
 
+const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i ;
+
 // Функция для сброса масштаба
 
 const resetImgScale = () => {
@@ -35,7 +33,7 @@ const resetImgScale = () => {
 
 // Функция для изменение размера 100%
 
-function sizePhoto() {
+function changePicture() {
   const value = parseInt(scaleControl.value, 10);
   const scaleNumber = value / 100;
   imgEffect.style.transform = `scale(${scaleNumber})`;
@@ -43,23 +41,23 @@ function sizePhoto() {
 
 // Обработчик для кнопки минус
 
-const smaller = () => {
+const handleSmallerClick = () => {
   let currentValue = parseInt(scaleControl.value, 10);
   if (currentValue > MIN_VALUE) {
     currentValue -= STEP;
     scaleControl.value = `${currentValue}%`;
-    sizePhoto();
+    changePicture();
   }
 };
 
 // Обработчик для кнопки плюс
 
-const bigger = () => {
+const handleBiggerClick = () => {
   let currentValue = parseInt(scaleControl.value, 10);
   if (currentValue < MAX_VALUE) {
     currentValue += STEP;
     scaleControl.value = `${currentValue}%`;
-    sizePhoto();
+    changePicture();
   }
 };
 
@@ -111,7 +109,7 @@ form.addEventListener('submit', (evt) => {
     sendData(new FormData(evt.target))
       .then(() => {
         showSuccess();
-        closeForm();
+        handleCancelClick();
       })
       .catch(() => {
         showError();
@@ -131,7 +129,8 @@ document.addEventListener('click', (evt) => {
 });
 
 // Обработчики для масштаба изоображение в форме
-onClickSmaller.addEventListener('click', smaller);
-onClickBigger.addEventListener('click', bigger);
+
+onClickSmaller.addEventListener('click', handleSmallerClick);
+onClickBigger.addEventListener('click', handleBiggerClick);
 
 export {resetValidate,resetImgScale};

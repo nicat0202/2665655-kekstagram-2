@@ -4,7 +4,7 @@ const effectsList = document.querySelector('.img-upload__effects');
 const previewImage = document.querySelector('.img-upload__preview img');
 const effectLevel = document.querySelector('.effect-level__value');
 
-let currentEffect = 'none';
+let currentEffects = 'none';
 
 // Параметры слайдера
 
@@ -17,6 +17,13 @@ noUiSlider.create(sliderElement, {
 
 sliderBox.classList.add('hidden');
 
+// Функция для сброса эффекта в форме
+
+const resetEffects = () => {
+  currentEffects = 'none';
+  previewImage.style.filter = '';
+  sliderBox.classList.add('hidden');
+};
 //  Обработчик для слайдера
 
 sliderElement.noUiSlider.on('update', () => {
@@ -25,15 +32,15 @@ sliderElement.noUiSlider.on('update', () => {
 
   // Условии для картинок
 
-  if (currentEffect === 'chrome') {
+  if (currentEffects === 'chrome') {
     previewImage.style.filter = `grayscale(${value})`;
-  } else if (currentEffect === 'sepia') {
+  } else if (currentEffects === 'sepia') {
     previewImage.style.filter = `sepia(${value})`;
-  } else if (currentEffect === 'marvin') {
+  } else if (currentEffects === 'marvin') {
     previewImage.style.filter = `invert(${value}%)`;
-  } else if (currentEffect === 'phobos') {
+  } else if (currentEffects === 'phobos') {
     previewImage.style.filter = `blur(${value}px)`;
-  } else if (currentEffect === 'heat') {
+  } else if (currentEffects === 'heat') {
     previewImage.style.filter = `brightness(${value})`;
   } else {
     previewImage.style.filter = '';
@@ -43,16 +50,16 @@ sliderElement.noUiSlider.on('update', () => {
 // Обработчик для эффекта слайдера
 
 effectsList.addEventListener('change', (evt) => {
-  currentEffect = evt.target.value;
+  currentEffects = evt.target.value;
 
   // Параметры эффекта для каждой картинки
 
-  if (currentEffect === 'none') {
+  if (currentEffects === 'none') {
     sliderBox.classList.add('hidden');
     previewImage.style.filter = '';
   } else {
     sliderBox.classList.remove('hidden');
-    if (currentEffect === 'chrome' || currentEffect === 'sepia') {
+    if (currentEffects === 'chrome' || currentEffects === 'sepia') {
       sliderElement.noUiSlider.updateOptions({
         range:
         { min: 0,
@@ -61,7 +68,7 @@ effectsList.addEventListener('change', (evt) => {
         start: 1,
         step: 0.1
       });
-    } else if (currentEffect === 'marvin') {
+    } else if (currentEffects === 'marvin') {
       sliderElement.noUiSlider.updateOptions({
         range:
         { min: 0,
@@ -70,7 +77,7 @@ effectsList.addEventListener('change', (evt) => {
         start: 100,
         step: 1,
       });
-    } else if (currentEffect === 'phobos') {
+    } else if (currentEffects === 'phobos') {
       sliderElement.noUiSlider.updateOptions({
         range:
         { min: 0,
@@ -79,7 +86,7 @@ effectsList.addEventListener('change', (evt) => {
         start: 3,
         step: 0.1,
       });
-    } else if (currentEffect === 'heat') {
+    } else if (currentEffects === 'heat') {
       sliderElement.noUiSlider.updateOptions({
         range:
         { min: 1,
@@ -91,3 +98,5 @@ effectsList.addEventListener('change', (evt) => {
     }
   }
 });
+
+export{resetEffects};

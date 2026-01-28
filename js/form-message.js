@@ -1,7 +1,6 @@
 const errorTemplateData = document.querySelector('#data-error').content.querySelector('.data-error'); // Не удалось загрузить данные
 const errorTemplate = document.querySelector('#error').content.querySelector('.error'); // Ошибка загрузки файла
 const successTemplate = document.querySelector('#success').content.querySelector('.success'); // Изображение успешно загружено
-
 const body = document.querySelector('body');
 
 const isEscape = (evt) => evt.key === 'Escape';
@@ -24,7 +23,7 @@ const showSuccess = () => {
 
   const closeSuccess = () => {
     successMessage.remove();
-    document.removeEventListener('keydown', onKeydownClickError);
+    document.removeEventListener('keydown', handleEscapeKeydown);
   };
 
   successMessage.querySelector('.success__button').addEventListener('click',() => {
@@ -37,12 +36,12 @@ const showSuccess = () => {
     }
   });
 
-  function onKeydownClickError(evt) {
+  function handleEscapeKeydown(evt) {
     if(isEscape(evt)){
       closeSuccess();
     }
   }
-  document.addEventListener('keydown', onKeydownClickError);
+  document.addEventListener('keydown', handleEscapeKeydown);
 };
 
 // Изоображение загружено с ошибкой
@@ -53,7 +52,7 @@ const showError = () => {
 
   const closeError = () => {
     errorMessage.remove();
-    document.removeEventListener('keydown', onKeydownClickError);
+    document.removeEventListener('keydown', handleEscapeKeydown);
   };
   errorMessage.querySelector('.error__button').addEventListener('click', () => {
     closeError();
@@ -64,12 +63,12 @@ const showError = () => {
     }
   });
 
-  function onKeydownClickError(evt) {
+  function handleEscapeKeydown(evt) {
     if(isEscape(evt)){
       closeError();
     }
   }
-  document.addEventListener('keydown', onKeydownClickError);
+  document.addEventListener('keydown', handleEscapeKeydown);
 };
 
 export { showSuccess, showError, showTimeError};
