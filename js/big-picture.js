@@ -10,7 +10,7 @@ const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
 const isEscape = (evt) => evt.key === 'Escape';
 
-const onEscapeKeydown = (evt) => {
+const onDocumentKeydown = (evt) => {
   if(isEscape(evt)){
     closeBigPicture();
   }
@@ -27,7 +27,7 @@ const openBigPicture = (photo) => {
 
   likesCount.textContent = photo.likes;
   description.textContent = photo.description;
-  document.addEventListener('keydown', onEscapeKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 
   clearComments();
   initComments(photo.comments);
@@ -45,7 +45,7 @@ function closeBigPicture () {
 
   likesCount.textContent = '';
   description.textContent = '';
-  document.removeEventListener('keydown', onEscapeKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 }
 
 cancelButton.addEventListener('click', () => {

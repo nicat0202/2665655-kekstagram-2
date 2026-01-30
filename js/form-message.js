@@ -15,7 +15,6 @@ const showTimeError = () => {
   },5000);
 };
 
-
 // Изображение успешно загружено
 
 const showSuccess = () => {
@@ -24,7 +23,7 @@ const showSuccess = () => {
 
   const closeSuccess = () => {
     successMessage.remove();
-    document.removeEventListener('keydown', handleEscapeKeydown);
+    document.removeEventListener('keydown', onDocumentKeydown);
   };
 
   successMessage.querySelector('.success__button').addEventListener('click',() => {
@@ -37,12 +36,12 @@ const showSuccess = () => {
     }
   });
 
-  function handleEscapeKeydown(evt) {
+  function onDocumentKeydown(evt) {
     if(isEscape(evt)){
       closeSuccess();
     }
   }
-  document.addEventListener('keydown', handleEscapeKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 // Изоображение загружено с ошибкой
@@ -53,7 +52,7 @@ const showError = () => {
 
   const closeError = () => {
     errorMessage.remove();
-    document.removeEventListener('keydown', handleEscapeKeydown);
+    document.removeEventListener('keydown', onDocumentKeydown);
   };
   errorMessage.querySelector('.error__button').addEventListener('click', () => {
     closeError();
@@ -64,12 +63,12 @@ const showError = () => {
     }
   });
 
-  function handleEscapeKeydown(evt) {
+  function onDocumentKeydown(evt) {
     if(isEscape(evt)){
       closeError();
     }
   }
-  document.addEventListener('keydown', handleEscapeKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 export { showSuccess, showError, showTimeError};

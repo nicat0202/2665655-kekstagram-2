@@ -1,6 +1,12 @@
-import { handleCancelClick } from './form.js';
+import { onCancelButtonClick } from './form.js';
 import { sendData } from './server.js';
 import { showSuccess,showError} from './form-message.js';
+
+const STEP = 25; // шаг изменения в процентах
+const MIN_VALUE = 25; // минимальное значение %
+const MAX_VALUE = 100; // максимальное значение %
+
+const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i ;
 
 const form = document.querySelector('.img-upload__form');
 const hashtagsInput = form.querySelector('.text__hashtags');
@@ -17,12 +23,6 @@ const ErrorMessage = {
   REPEAT: 'хэштеги повторяются',
   COMMENTS : 'ошибка здесь'
 };
-
-const STEP = 25; // шаг изменения в процентах
-const MIN_VALUE = 25; // минимальное значение %
-const MAX_VALUE = 100; // максимальное значение %
-
-const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i ;
 
 // Функция для сброса масштаба
 
@@ -41,7 +41,7 @@ function changePicture() {
 
 // Обработчик для кнопки минус
 
-const handleSmallerClick = () => {
+const onScaleSmallerButtonClick = () => {
   let currentValue = parseInt(scaleControl.value, 10);
   if (currentValue > MIN_VALUE) {
     currentValue -= STEP;
@@ -52,7 +52,7 @@ const handleSmallerClick = () => {
 
 // Обработчик для кнопки плюс
 
-const handleBiggerClick = () => {
+const onScaleBiggerButtonClick = () => {
   let currentValue = parseInt(scaleControl.value, 10);
   if (currentValue < MAX_VALUE) {
     currentValue += STEP;
@@ -109,7 +109,7 @@ form.addEventListener('submit', (evt) => {
     sendData(new FormData(evt.target))
       .then(() => {
         showSuccess();
-        handleCancelClick();
+        onCancelButtonClick();
       })
       .catch(() => {
         showError();
@@ -130,7 +130,7 @@ document.addEventListener('click', (evt) => {
 
 // Обработчики для масштаба изоображение в форме
 
-onClickSmaller.addEventListener('click', handleSmallerClick);
-onClickBigger.addEventListener('click', handleBiggerClick);
+onClickSmaller.addEventListener('click', onScaleSmallerButtonClick);
+onClickBigger.addEventListener('click', onScaleBiggerButtonClick);
 
 export {resetValidate,resetImgScale};

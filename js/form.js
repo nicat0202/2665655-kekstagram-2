@@ -6,7 +6,7 @@ const formOverlay = document.querySelector('.img-upload__overlay');
 const onCancelButton = formOverlay.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 
-const handleCancelClick = () => {
+const onCancelButtonClick = () => {
   formOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   form.reset();
@@ -21,8 +21,8 @@ const initForm = () => {
     formOverlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
   });
-  onCancelButton.addEventListener('click', handleCancelClick);
-  document.addEventListener('keydown', handleDocumentKeydown);
+  onCancelButton.addEventListener('click', onCancelButtonClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const isEscape = (evt) => evt.key === 'Escape';
@@ -33,15 +33,15 @@ uploadInput.addEventListener('change', () => {
 });
 
 
-function handleDocumentKeydown (evt) {
+function onDocumentKeydown (evt) {
   if(isEscape(evt) && !document.querySelector('.error')){
-    handleCancelClick();
+    onCancelButtonClick();
   }
 }
 
 // Кнопка событие для закрытие формы
 
-onCancelButton.addEventListener('click', handleCancelClick);
-document.addEventListener('keydown', handleDocumentKeydown);
+onCancelButton.addEventListener('click', onCancelButtonClick);
+document.addEventListener('keydown', onDocumentKeydown);
 
-export {handleCancelClick,initForm};
+export {onCancelButtonClick,initForm};
